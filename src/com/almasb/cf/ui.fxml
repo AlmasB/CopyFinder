@@ -17,4 +17,7 @@
    <center>
       <TreeView fx:id="tree" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <Label fx:id="labelError" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>
