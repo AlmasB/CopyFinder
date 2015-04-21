@@ -18,6 +18,12 @@
       <TreeView fx:id="tree" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <Label fx:id="labelError" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="labelError" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <ProgressIndicator fx:id="progress" progress="0.0" visible="false" />
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>

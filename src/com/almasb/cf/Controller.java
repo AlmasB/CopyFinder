@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.text.Text;
@@ -29,6 +30,8 @@ public class Controller {
     private Label labelError;
     @FXML
     private TreeView<Node> tree;
+    @FXML
+    private ProgressIndicator progress;
 
     public void browse() {
         DirectoryChooser chooser = new DirectoryChooser();
@@ -39,7 +42,11 @@ public class Controller {
         if (dir != null) {
             labelDirectory.setText(dir.getAbsolutePath());
 
-            Thread th = new Thread(new GetCopiesTask(dir.toPath(), SearchMode.RECURSIVE));
+            Task<List<FileCopy> > task = new GetCopiesTask(dir.toPath(), SearchMode.RECURSIVE);
+            progress.progressProperty().bind(task.progressProperty());
+            progress.setVisible(true);
+
+            Thread th = new Thread(task);
             th.setDaemon(true);
             th.start();
         }
@@ -79,11 +86,13 @@ public class Controller {
         protected void failed() {
             Throwable e = getException();
             labelError.setText(e == null ? "Unknown error" : e.getMessage());
+            progress.setVisible(false);
         }
 
         @Override
         protected void succeeded() {
             updateTreeView(getValue());
+            progress.setVisible(false);
         }
     }
 }
