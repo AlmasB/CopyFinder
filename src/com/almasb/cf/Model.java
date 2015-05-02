@@ -9,10 +9,22 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.application.HostServices;
+
 public class Model {
+
+    private final HostServices hostServices;
+
+    public Model(HostServices hostServices) {
+        this.hostServices = hostServices;
+    }
 
     public enum SearchMode {
         TOP_LEVEL, RECURSIVE
+    }
+
+    public void openFileExplorer(Path file) {
+        hostServices.showDocument(file.toAbsolutePath().toUri().toString());
     }
 
     public List<FileCopy> getCopies(Path dir, SearchMode mode) throws IOException {

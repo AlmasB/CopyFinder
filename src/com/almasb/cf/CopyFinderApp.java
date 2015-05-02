@@ -13,10 +13,10 @@ public class CopyFinderApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ui.fxml"));
 
         Parent root = loader.load();
-        loader.<Controller>getController().setModel(new Model());
+        loader.<Controller>getController().setModel(new Model(getHostServices()));
 
         primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("CopyFinder 1.0");
+        primaryStage.setTitle("CopyFinder 1.0.1");
         primaryStage.show();
     }
 

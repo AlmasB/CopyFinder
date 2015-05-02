@@ -7,10 +7,12 @@ import java.util.List;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 
@@ -58,8 +60,15 @@ public class Controller {
         for (FileCopy copy : copies) {
             String heading = String.format("[%s] [%d bytes] [%d files]", copy.getName(), copy.getSize(), copy.getNumberOfCopies());
             TreeItem<Node> node = new TreeItem<>(new Text(heading));
-            copy.getCopies().forEach(path ->
-                node.getChildren().add(new TreeItem<>(new Text(path.toAbsolutePath().toString()))));
+            copy.getCopies().forEach(path -> {
+                Button btn = new Button("Show file location");
+                btn.setOnAction(event -> {
+                    model.openFileExplorer(path.getParent());
+                });
+
+                HBox hbox = new HBox(10, new Text(path.toAbsolutePath().toString()), btn);
+                node.getChildren().add(new TreeItem<>(hbox));
+            });
 
             root.getChildren().add(node);
         }
