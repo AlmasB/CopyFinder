@@ -16,7 +16,7 @@ public class CopyFinderApp extends Application {
         loader.<Controller>getController().setModel(new Model(getHostServices()));
 
         primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("CopyFinder 1.0.1");
+        primaryStage.setTitle("CopyFinder 1.0.0");
         primaryStage.show();
     }
 
